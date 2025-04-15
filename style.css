@@ -1,0 +1,108 @@
+/* Umum */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Navbar */
+nav {
+    background: #333;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    text-align: center;
+}
+nav a {
+    color: white;
+    margin: 10px;
+    text-decoration: none;
+}
+nav a.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Home Page */
+.home-container {
+    padding: 80px 20px 20px 20px; /* dengan padding atas untuk offset navbar */
+    text-align: center;
+}
+.home-container img {
+    margin-top: 20px;
+    width: 350px;
+}
+
+/* Gallery Page */
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 80px;
+}
+.gallery-item {
+    margin: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 300px;
+}
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.gallery-item p {
+    padding: 10px;
+    text-align: center;
+    background-color: #fff;
+}
+
+/* Blog Page */
+.container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 100px 20px 20px 20px;
+}
+.article {
+    width: 30%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+@media (max-width: 900px) {
+    .article {
+        width: 45%;
+    }
+}
+@media (max-width: 600px) {
+    .article {
+        width: 90%;
+    }
+}
+
+/* Contact Page */
+.contact-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 60px;
+}
+.contact-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+.contact-item {
+    margin: 10px 0;
+}
