@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery Page</title>
+    <title>Gallery</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
 </head>
 <body>
     <nav>
@@ -16,15 +15,17 @@
     </nav>
 
     <div class="gallery-container">
-        <div class="gallery-item">
-            <img src="image/1.jpg" alt="Image 1">
+        <div class="gallery-item fade-target">
+            <img data-src="image/1.jpg" alt="Image 1">
         </div>
-        <div class="gallery-item">
-            <img src="image/2.jpg" alt="Image 2">
+        <div class="gallery-item fade-target">
+            <img data-src="image/2.jpg" alt="Image 2">
         </div>
-        <div class="gallery-item">
-            <img src="image/3.jpg" alt="Image 3">
+        <div class="gallery-item fade-target">
+            <img data-src="image/3.jpg" alt="Image 3">
         </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
