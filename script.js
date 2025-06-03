@@ -1,21 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Fungsi Navigasi Aktif dengan Error Handling
+    // 1. Navigasi aktif saat scroll (Updated)
     const setActiveNav = () => {
-        try {
-            const currentPath = window.location.pathname.split('/').pop();
-            document.querySelectorAll('nav a').forEach(link => {
-                const linkPath = link.getAttribute('href').split('/').pop();
-                link.classList.toggle('active', 
-                    currentPath === linkPath ||
-                    (currentPath === '' && linkPath === 'index.html')
-                );
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll("nav a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100; // Offset for fixed navbar
+                const sectionBottom = sectionTop + section.offsetHeight;
+                if (scrollY >= sectionTop && scrollY < sectionBottom) {
+                    current = section.getAttribute("id") || "";
+                } else if (scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+                    // If at the bottom of the page, activate the last section (Contact)
+                    current = sections[sections.length - 1].getAttribute("id");
+                }
             });
-        } catch (error) {
-            console.error('Error setting active navigation:', error);
-        }
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + current) {
+                    link.classList.add("active");
+                }
+            });
+        });
     };
 
-    // 2. Animasi Modern dengan Intersection Observer
+    // 2. Animasi muncul saat scroll menggunakan Intersection Observer
     const animateOnScroll = () => {
         const observerOptions = {
             threshold: 0.1,
@@ -32,12 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }, observerOptions);
 
         document.querySelectorAll('.fade-target').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
             element.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
             observer.observe(element);
         });
     };
 
-    // 3. Sistem Toast Notification
+    // 3. Menampilkan toast notification
     const showToast = (message, type = 'info') => {
         const toast = document.createElement('div');
         toast.className = `toast toast-${type} fade-target`;
@@ -47,26 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.remove(), 3000);
     };
 
-    // 4. Fitur Dark Mode
-    const initDarkMode = () => {
-        const darkModeToggle = document.createElement('button');
-        darkModeToggle.id = 'dark-mode-toggle';
-        darkModeToggle.innerHTML = '🌓';
-        
-        darkModeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        });
-
-        // Cek localStorage
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-        }
-
-        document.body.appendChild(darkModeToggle);
-    };
-
-    // 5. Optimasi Gambar dengan Lazy Loading
+    // 5. Lazy loading gambar menggunakan data-src
     const initLazyLoading = () => {
         const lazyImages = document.querySelectorAll('img[data-src]');
         const imgObserver = new IntersectionObserver((entries) => {
@@ -83,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lazyImages.forEach(img => imgObserver.observe(img));
     };
 
-    // 6. Smooth Scroll
+    // 6. Smooth scroll untuk navigasi anchor
     const initSmoothScroll = () => {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -102,16 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inisialisasi semua fitur
     setActiveNav();
     animateOnScroll();
-    initDarkMode();
     initLazyLoading();
     initSmoothScroll();
-    initFormValidation();
-    
-    // Notifikasi selamat datang yang tidak mengganggu
+
+    // Notifikasi sambutan
     setTimeout(() => showToast('Selamat datang di Website Graciano! 🚀'), 1000);
 });
 
-// 7. Debounce untuk Event Resize
+// 7. Debounce resize event (opsional)
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
